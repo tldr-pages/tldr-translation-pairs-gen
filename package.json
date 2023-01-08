@@ -1,0 +1,48 @@
+{
+  "name": "tldr-translation-dataset-gen",
+  "version": "0.1.0",
+  "description": "Generates a structured dataset in various formats derived from tldr-pages.",
+  "bin": {
+    "tldr-translation-dataset-gen": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "test": "mocha -r ts-node/register 'tests/**/*.ts'",
+    "tldr-translation-dataset-gen": "node ./dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tldr-pages/tldr-translation-dataset-gen.git"
+  },
+  "keywords": [
+    "tldr",
+    "opus",
+    "corpus",
+    "i18n"
+  ],
+  "author": "tldr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tldr-pages/tldr-translation-dataset-gen/issues"
+  },
+  "homepage": "https://github.com/tldr-pages/tldr-translation-dataset-gen#readme",
+  "dependencies": {
+    "commander": "^9.3.0",
+    "csv-stringify": "^6.2.0",
+    "fast-xml-parser": "^4.0.11",
+    "glob": "^8.0.3",
+    "marked": "^4.0.17"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.3",
+    "@types/glob": "^8.0.0",
+    "@types/marked": "^4.0.7",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "^18.11.4",
+    "chai": "^4.3.6",
+    "mocha": "^10.1.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  }
+}
