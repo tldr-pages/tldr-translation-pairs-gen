@@ -5,7 +5,7 @@
 Clone the repository with Git.
 
 ```sh
-git clone https://github.com/tldr-pages/tldr-pages-dataset-gen.git
+git clone https://github.com/tldr-pages/tldr-translation-pairs-gen.git
 ```
 
 As this is a Node.js project and uses NPM for package management, start by installing dependencies.
@@ -34,7 +34,7 @@ You can run this manually over a local copy of tldr-pages. First clone a copy of
 git clone https://github.com/tldr-pages/tldr.git
 ```
 
-Then build tldr-translation-dataset-gen:
+Then build tldr-translation-pairs-gen:
 
 ```sh
 npm run build
@@ -43,7 +43,7 @@ npm run build
 Finally, you can execute the command from the transpiled sources.
 
 ```sh
-npm run tldr-translation-dataset-gen -- -s {PATH_TO_TLDR-PAGES} -o dataset.csv -O
+npm run tldr-translation-pairs-gen -- -s {PATH_TO_TLDR-PAGES} -o dataset.csv -O
 ```
 
 Read the README or help command for more information on how to use this and arguments.

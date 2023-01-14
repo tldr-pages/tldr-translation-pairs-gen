@@ -5,10 +5,10 @@ import { execute } from './lib/lib';
 
 const version = '0.1.0';
 
-const program = new Command('tldr-translation-dataset-gen');
+const program = new Command('tldr-translation-pairs-gen');
 
 program
-  .name('tldr-translation-dataset-get')
+  .name('tldr-translation-pairs-gen')
   .addHelpText('before', `Version: ${version}`)
   .addHelpText('before', 'Copyright (c) 2022-present tldr-pages team and contributors')
   .description(`Generates a translation dataset derived from tldr-pages with support for various formats`)

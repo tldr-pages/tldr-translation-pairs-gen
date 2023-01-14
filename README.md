@@ -1,12 +1,12 @@
 <div align="center">
-  <h1>tldr-translation-dataset-gen</h1>
+  <h1>tldr-translation-pairs-gen</h1>
 
 [![Gitter chat][gitter-image]][gitter-url]
 [![license][license-image]][license-url]
 
 [gitter-url]: https://gitter.im/tldr-pages/tldr
 [gitter-image]: https://img.shields.io/badge/chat-on_gitter-deeppink
-[license-url]: https://github.com/tldr-pages/tldr-translation-dataset-gen/blob/main/LICENSE.md
+[license-url]: https://github.com/tldr-pages/tldr-translation-pairs-gen/blob/main/LICENSE.md
 [license-image]: https://img.shields.io/badge/license-MIT-blue.svg
 </div>
 
@@ -30,18 +30,18 @@ One way or another, obtain a copy of the tldr-pages. The easiest way is to use [
 git clone https://github.com/tldr-pages/tldr.git
 ```
 
-### Execute tldr-translation-dataset-gen
+### Execute tldr-translation-pairs-gen
 
-Once you have tldr-pages locally, you should be able to point tldr-translation-dataset-gen to the directory using the `--source` argument. This will export a `dataset.xml` file with all mappings that can be found between translated pages.
+Once you have tldr-pages locally, you should be able to point tldr-translation-pairs-gen to the directory using the `--source` argument. This will export a `dataset.xml` file with all mappings that can be found between translated pages.
 
 ```sh
-tldr-translation-dataset-gen --source {{path/to/sources}}
+tldr-translation-pairs-gen --source {{path/to/sources}}
 ```
 
 You can also pass a `--output` argument to specify a different file location. The supported file formats are CSV, JSON, and XML, which can be specified by using the appropriate file extension in the output argument.
 
 ```sh
-tldr-translation-dataset-gen --source {{path/to/sources}} --output dataset.json
+tldr-translation-pairs-gen --source {{path/to/sources}} --output dataset.json
 ```
 
 ## Excluded Strings
