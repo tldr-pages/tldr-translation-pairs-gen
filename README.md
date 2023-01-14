@@ -54,7 +54,7 @@ To map strings between languages, we parse all examples, remove tokens between c
 
 However, sometimes after removing the content between curly braces, two or more examples in the same page may have the same content because the only difference was the tokens. In these case, we omit them from dataset as there is no way to umabiguously know which command is the pairing example.
 
-Here is a real-world example of the problem, the English version was modified after the German translation was made, so now the pages have fallen out of sync. If we made pairs using the index, we'd create mismatches.
+Here is a real-world example of the problem: the English version was modified after the French translation was made, so now the pages have fallen out of sync. If we made pairs using the index, we'd create mismatches.
 
 | [EN](https://github.com/tldr-pages/tldr/blob/77decbbb90597baa942e224da2138477d273fc86/pages/common/tldr.md) | [FR](https://github.com/SethFalco/tldr/blob/051d085b7b684aec7413e2ea2ea36cc24406ce16/pages.fr/common/tldr.md) |
 |---|---|
