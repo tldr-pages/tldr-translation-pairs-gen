@@ -12,7 +12,7 @@
 
 ## About
 
-This is a CLI application for parsing all tldr pages from the [tldr-pages/tldr](https://github.com/tldr-pages/tldr) repository, and creating a dataset that maps the translations in internationalized pages. The primary purpose is to provide an additional dataset for [OPUS](https://opus.nlpl.eu/), a collection of translated resources from the web, readily available in a standardised format for by other tools or research.
+This is a CLI application for parsing all tldr pages from the [tldr-pages/tldr](https://github.com/tldr-pages/tldr) repository, and creating a dataset that maps the translations in internationalized pages. The primary purpose is to provide an additional dataset for [OPUS](https://opus.nlpl.eu/), a collection of translated resources from the web, readily available in a standardised format for other tools or research.
 
 ### What is OPUS?
 
