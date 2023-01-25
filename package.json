@@ -1,19 +1,19 @@
 {
-  "name": "tldr-translation-dataset-gen",
+  "name": "tldr-translation-pairs-gen",
   "version": "0.1.0",
   "description": "Generates a structured dataset in various formats derived from tldr-pages.",
   "bin": {
-    "tldr-translation-dataset-gen": "./dist/index.js"
+    "tldr-translation-pairs-gen": "./dist/index.js"
   },
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
     "test": "mocha -r ts-node/register 'tests/**/*.ts'",
-    "tldr-translation-dataset-gen": "node ./dist/index.js"
+    "tldr-translation-pairs-gen": "node ./dist/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tldr-pages/tldr-translation-dataset-gen.git"
+    "url": "git+https://github.com/tldr-pages/tldr-translation-pairs-gen.git"
   },
   "keywords": [
     "tldr",
@@ -24,9 +24,9 @@
   "author": "tldr",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tldr-pages/tldr-translation-dataset-gen/issues"
+    "url": "https://github.com/tldr-pages/tldr-translation-pairs-gen/issues"
   },
-  "homepage": "https://github.com/tldr-pages/tldr-translation-dataset-gen#readme",
+  "homepage": "https://github.com/tldr-pages/tldr-translation-pairs-gen#readme",
   "dependencies": {
     "commander": "^9.3.0",
     "csv-stringify": "^6.2.0",
