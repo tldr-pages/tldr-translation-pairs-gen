@@ -12,7 +12,7 @@
 
 ## About
 
-This is a CLI application for parsing all tldr pages from the [tldr-pages/tldr](https://github.com/tldr-pages/tldr) repository, and creating a dataset that maps the translations in internationalized pages. The primary purpose is to provide an additional dataset for [OPUS](https://opus.nlpl.eu/), a collection of translated resources from the web, readily available in a standardised format for other tools or research.
+This is a CLI application for parsing all tldr pages from the [tldr-pages/tldr](https://github.com/tldr-pages/tldr) repository, and creating a dataset that maps the translations in internationalized pages. The primary purpose is to provide an additional dataset for [OPUS](https://opus.nlpl.eu/), a collection of translated resources from the web, readily available in a standardized format for other tools or research.
 
 ### What is OPUS?
 
@@ -52,7 +52,7 @@ Each example in a page features two strings, the description of what the command
 
 To map strings between languages, we parse all examples, remove tokens between curly braces (i.e. `{{path/to/file}}`) as they can be internationalized, and then find the pairing example in the page of other languages if it exists.
 
-However, sometimes after removing the content between curly braces, two or more examples in the same page may have the same content because the only difference was the tokens. In these case, we omit them from dataset as there is no way to umabiguously know which command is the pairing example.
+However, sometimes after removing the content between curly braces, two or more examples in the same page may have the same content because the only difference was the tokens. In these case, we omit them from dataset as there is no way to unambiguously know which command is the pairing example.
 
 Here is a real-world example of the problem: the English version was modified after the French translation was made, so now the pages have fallen out of sync. If we made pairs using the index, we'd create mismatches.
 
