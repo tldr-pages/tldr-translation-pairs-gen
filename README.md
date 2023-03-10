@@ -1,11 +1,11 @@
 <div align="center">
   <h1>tldr-translation-pairs-gen</h1>
 
-[![Gitter chat][gitter-image]][gitter-url]
+[![Matrix chat][matrix-image]][matrix-url]
 [![license][license-image]][license-url]
 
-[gitter-url]: https://gitter.im/tldr-pages/tldr
-[gitter-image]: https://img.shields.io/badge/chat-on_gitter-deeppink
+[matrix-url]: https://matrix.to/#/#tldr-pages:matrix.org
+[matrix-image]: https://img.shields.io/matrix/tldr-pages:matrix.org?label=Chat+on+Matrix
 [license-url]: https://github.com/tldr-pages/tldr-translation-pairs-gen/blob/main/LICENSE.md
 [license-image]: https://img.shields.io/badge/license-MIT-blue.svg
 </div>
