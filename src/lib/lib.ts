@@ -4,7 +4,7 @@ import { Lexer } from 'marked';
 import { promisify } from 'util';
 import { TldrFile } from '../lib/tldr-file';
 import { TldrPage } from '../lib/tldr-page';
-import { Example, LanguageMapping } from '../types/tldr-pages';
+import { Example, LanguageMapping, Writer } from '../types/tldr-pages';
 import { getWriterForFile } from '../writers/writer-factory';
 
 const TOKEN_PATTERN = /(?<=\{\{)[^{]+?(?=\}\})/g;
@@ -16,9 +16,9 @@ function collectTldrPages(source: string): Promise<string[]> {
 }
 
 /**
- * @returns {object} Language directories mapped to the respective language, excluding the source directory.
+ * @returns Language directories mapped to the respective language, excluding the source directory.
  */
-function getAvailableLanguages(tldrPageFiles: TldrFile[]): Set<string> {
+function getSupportedLanguages(tldrPageFiles: TldrFile[]): Set<string> {
   const languages = tldrPageFiles.map((tldrPageFile) => tldrPageFile.language);
   return new Set(languages);
 }
@@ -57,7 +57,6 @@ export function parseTldrPage(source: string): TldrPage {
   }
 
   const descriptionTokens = descriptionText.tokens;
-
   const hasMoreInfo = descriptionTokens[descriptionTokens.length - 2]?.type === 'link';
 
   let description = '';
@@ -181,28 +180,22 @@ export function findTranslations(sourcePage: TldrPage, sourceLanguage: string, t
  * @param source Path to tldr-pages on disk.
  * @param output Location to write the dataset to.
  * @param targetFormat The desired format to write the dataset in.
- * @param sourceLanguage The source format to output translations from.
  */
-export async function execute(source: string, sourceLanguage: string, output: string, targetFormat: string) {
+export async function execute(source: string, output: string, targetFormat: string) {
   const tldrPagePaths = await collectTldrPages(source);
   const tldrPageFiles = parseTldrPaths(tldrPagePaths);
+  const languages = getSupportedLanguages(tldrPageFiles);
+  const languageCombinations = getSortedCombinations([...languages]);
 
-  const sourceTldrFiles = tldrPageFiles.filter((file) => file.language === sourceLanguage);
-  const languages = getAvailableLanguages(tldrPageFiles);
-  languages.delete(sourceLanguage);
+  for (const combo of languageCombinations) {
+    const sourceTldrFiles = tldrPageFiles.filter((file) => file.language === combo[0]);
+    let writer: Writer | undefined = undefined;
 
-  const writer = getWriterForFile(output, targetFormat);
+    for (const sourceTldrFile of sourceTldrFiles) {
+      let sourcePage: TldrPage | undefined = undefined;
 
-  const totalPages = sourceTldrFiles.length;
-  const uiSteps = Math.ceil(totalPages / 10);
-  let processedPages = 0;
-
-  for (const sourceTldrFile of sourceTldrFiles) {
-    let sourcePage: TldrPage | undefined = undefined;
-
-    for (const language of languages) {
       const targetFile = tldrPageFiles.find((tldrPageFile) => {
-        return tldrPageFile.language == language && tldrPageFile.isInternationalizedVariant(sourceTldrFile);
+        return tldrPageFile.language == combo[1] && tldrPageFile.isInternationalizedVariant(sourceTldrFile);
       });
 
       if (!targetFile) {
@@ -215,23 +208,38 @@ export async function execute(source: string, sourceLanguage: string, output: st
         sourcePage = await sourceTldrFile.read();
       }
 
-      const mappings = findTranslations(sourcePage, sourceLanguage, targetPage, language);
+      if (writer === undefined) {
+        writer = getWriterForFile(path.join(output, `${combo[0]}-${combo[1]}.${targetFormat}`), targetFormat);
+      }
+
+      const mappings = findTranslations(sourcePage, combo[0], targetPage, combo[1]);
 
       for (const mapping of mappings) {
         writer.write(mapping);
       }
     }
 
-    processedPages++;
-
-    if (processedPages % uiSteps === 0) {
-      process.stdout.write(`Processed ${processedPages} of ${totalPages} pages. (${Math.round(processedPages / totalPages * 100)}%)`);
-
-      const wasLastProgressLog = totalPages - processedPages <= uiSteps;
-      process.stdout.write((wasLastProgressLog) ? '\n' : '\r');
+    if (writer) {
+      writer.finished();
     }
+
+    console.log(`Finished processing pages for ${combo[0]}-${combo[1]}.`);
   }
 
-  writer.finished();
   console.log('Finished processing all pages.');
+}
+
+/**
+ * Note that while each combination in the array is sorted, the top-level array
+ * itself is not.
+ *
+ * @param arr Any arbitrary array of items.
+ * @returns All combinations of 2 items in the list, each individual combination sorted.
+ */
+export function getSortedCombinations<T>(arr: T[]): T[][] {
+  const result = arr.flatMap(
+      (val, i) => arr.slice(i + 1).map((word) => [val, word].sort())
+  );
+
+  return result;
 }

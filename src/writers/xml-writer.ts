@@ -1,27 +1,32 @@
 import fs from 'fs';
-import { XMLBuilder } from 'fast-xml-parser';
-import { Writer } from '../types/tldr-pages';
+import { create } from 'xmlbuilder2';
+import { XMLBuilderCreateOptions } from 'xmlbuilder2/lib/interfaces';
+import { LanguageMapping, Writer } from '../types/tldr-pages';
 
 export class XmlWriter implements Writer {
 
-  private accumlatedData: unknown[];
-  private builder: XMLBuilder;
+  private root;
 
   constructor(private output: string) {
-    this.accumlatedData = [];
+    const options: XMLBuilderCreateOptions = {
+      version: "1.0",
+      encoding: "UTF-8"
+    };
 
-    this.builder = new XMLBuilder({
-      arrayNodeName: "mapping",
-      format: true
-    });
+    this.root = create(options).ele("mappings");
   }
 
-  write(data: unknown) {
-    this.accumlatedData.push(data);
+  write(data: LanguageMapping) {
+    this.root = this.root.ele("mapping")
+      .ele("srclang").txt(data.sourceLanguage).up()
+      .ele("targetlang").txt(data.targetLanguage).up()
+      .ele("source").txt(data.sourceString).up()
+      .ele("target").txt(data.targetString).up()
+      .up();
   }
 
   finished() {
-    const xmlString = this.builder.build(this.accumlatedData);
+    const xmlString = this.root.end({ prettyPrint: true });
     fs.writeFile(this.output, xmlString, () => undefined);
   }
 }

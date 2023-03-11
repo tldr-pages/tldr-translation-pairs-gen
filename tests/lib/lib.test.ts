@@ -1,6 +1,6 @@
 import { describe } from 'node:test';
 import { assert } from 'chai';
-import { findTranslations, normalize, parseTldrPage, parseTldrPaths, unique } from '../../src/lib/lib';
+import { findTranslations, getSortedCombinations, normalize, parseTldrPage, parseTldrPaths, unique } from '../../src/lib/lib';
 import { TldrFile } from '../../src/lib/tldr-file';
 import { TldrPage } from '../../src/lib/tldr-page';
 import { Example, LanguageMapping } from '../../src/types/tldr-pages';
@@ -237,5 +237,28 @@ describe('#findTranslations', () => {
     const actual = findTranslations(enPage, 'en', dePage, 'de');
 
     assert.deepStrictEqual(expected, actual);
+  });
+});
+
+describe('#getSortedCombinations', () => {
+
+  it('generates a array of combinations', () => {
+    const arr = ['en', 'de', 'fr', 'pl', 'hi'];
+
+    const expected = [
+      [ 'de', 'en' ],
+      [ 'en', 'fr' ],
+      [ 'en', 'pl' ],
+      [ 'en', 'hi' ],
+      [ 'de', 'fr' ],
+      [ 'de', 'pl' ],
+      [ 'de', 'hi' ],
+      [ 'fr', 'pl' ],
+      [ 'fr', 'hi' ],
+      [ 'hi', 'pl' ]
+    ];
+    const actual = getSortedCombinations(arr);
+
+    assert.deepEqual(actual, expected);
   });
 });
