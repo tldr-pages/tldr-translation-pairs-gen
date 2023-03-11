@@ -2,6 +2,7 @@ import { Writer } from '../types/tldr-pages';
 import { CsvWriter } from '../writers/csv-writer';
 import { JsonWriter } from '../writers/json-writer';
 import { XmlWriter } from '../writers/xml-writer';
+import { TmxWriter } from './tmx-writer';
 
 /**
  * @param output Path to output the file to.
@@ -13,6 +14,8 @@ export function getWriterForFile(output: string, targetFormat: string): Writer {
   }
 
   switch (targetFormat.toLowerCase()) {
+    case 'tmx':
+      return new TmxWriter(output);
     case 'xml':
       return new XmlWriter(output);
     case 'csv':

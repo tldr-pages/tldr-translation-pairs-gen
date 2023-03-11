@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { Stringifier, stringify } from 'csv-stringify';
-import { Writer } from '../types/tldr-pages';
+import { LanguageMapping, Writer } from '../types/tldr-pages';
 
 export class CsvWriter implements Writer {
 
@@ -27,7 +27,7 @@ export class CsvWriter implements Writer {
     });
   }
 
-  write(data: unknown) {
+  write(data: LanguageMapping) {
     this.stream.write(data);
   }
 

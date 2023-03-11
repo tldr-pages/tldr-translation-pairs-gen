@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { Writer } from '../types/tldr-pages';
+import { LanguageMapping, Writer } from '../types/tldr-pages';
 
 export class JsonWriter implements Writer {
 
@@ -9,7 +9,7 @@ export class JsonWriter implements Writer {
     this.accumlatedData = [];
   }
 
-  write(data: unknown) {
+  write(data: LanguageMapping) {
     this.accumlatedData.push(data);
   }
 

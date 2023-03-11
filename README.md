@@ -32,16 +32,16 @@ git clone https://github.com/tldr-pages/tldr.git
 
 ### Execute tldr-translation-pairs-gen
 
-Once you have tldr-pages locally, you should be able to point tldr-translation-pairs-gen to the directory using the `--source` argument. This will export a `dataset.xml` file with all mappings that can be found between translated pages.
+Once you have tldr-pages locally, you should be able to point tldr-translation-pairs-gen to the directory using the `--source` argument. This will output a file for every combination of languages to the `dataset/` directory, with all alignments that can be found between translated pages.
 
 ```sh
 tldr-translation-pairs-gen --source {{path/to/sources}}
 ```
 
-You can also pass a `--output` argument to specify a different file location. The supported file formats are CSV, JSON, and XML, which can be specified by using the appropriate file extension in the output argument.
+You can also pass the `--format` argument to specify a different output format. The supported file formats are TMX ([Translation Memory eXchange](https://en.wikipedia.org/wiki/Translation_Memory_eXchange)), XML, CSV, and JSON.
 
 ```sh
-tldr-translation-pairs-gen --source {{path/to/sources}} --output dataset.json
+tldr-translation-pairs-gen --source {{path/to/sources}} --format csv
 ```
 
 ## Excluded Strings

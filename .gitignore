@@ -140,3 +140,4 @@ dist
 # Output files
 /dataset
 /dataset.*
+/datasets

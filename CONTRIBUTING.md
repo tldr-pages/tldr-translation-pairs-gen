@@ -43,7 +43,7 @@ npm run build
 Finally, you can execute the command from the transpiled sources.
 
 ```sh
-npm run tldr-translation-pairs-gen -- -s {PATH_TO_TLDR-PAGES} -o dataset.csv -O
+npm run tldr-translation-pairs-gen -- --source {PATH_TO_TLDR-PAGES}
 ```
 
 Read the README or help command for more information on how to use this and arguments.
