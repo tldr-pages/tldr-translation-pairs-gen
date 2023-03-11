@@ -6,7 +6,7 @@
 
 [matrix-url]: https://matrix.to/#/#tldr-pages:matrix.org
 [matrix-image]: https://img.shields.io/matrix/tldr-pages:matrix.org?label=Chat+on+Matrix
-[license-url]: https://github.com/tldr-pages/tldr-translation-pairs-gen/blob/main/LICENSE.md
+[license-url]: https://github.com/tldr-pages/tldr-translation-pairs-gen/blob/main/LICENSE
 [license-image]: https://img.shields.io/badge/license-MIT-blue.svg
 </div>
 
