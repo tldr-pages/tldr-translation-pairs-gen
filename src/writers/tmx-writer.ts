@@ -30,8 +30,8 @@ export class TmxWriter implements Writer {
       .att("datatype", "plaintext")
       .att("o-encoding", "UTF-8")
       .att("creationdate", new Date().toISOString())
-      .att("creationid", "tldr-pages and contributors")
-      .att("changeid", "tldr-pages and contributors")
+      .att("creationid", "tldr-pages team and contributors")
+      .att("changeid", "tldr-pages team and contributors")
       .up()
       .ele("body");
   }
