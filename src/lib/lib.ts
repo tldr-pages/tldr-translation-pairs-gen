@@ -187,25 +187,41 @@ export async function execute(source: string, output: string, targetFormat: stri
   const languages = getSupportedLanguages(tldrPageFiles);
   const languageCombinations = getSortedCombinations([...languages]);
 
+  const skippedPaths = new Set<string>();
+
   for (const combo of languageCombinations) {
-    const sourceTldrFiles = tldrPageFiles.filter((file) => file.language === combo[0]);
+    const sourceFiles = tldrPageFiles.filter((file) => file.language === combo[0]);
     let writer: Writer | undefined = undefined;
 
-    for (const sourceTldrFile of sourceTldrFiles) {
+    for (const sourceFile of sourceFiles) {
+      const sourceIntegrity = await sourceFile.verifyIntegrity();
+
+      if (!sourceIntegrity) {
+        skippedPaths.add(sourceFile.path);
+        continue;
+      }
+
       let sourcePage: TldrPage | undefined = undefined;
 
       const targetFile = tldrPageFiles.find((tldrPageFile) => {
-        return tldrPageFile.language == combo[1] && tldrPageFile.isInternationalizedVariant(sourceTldrFile);
+        return tldrPageFile.language == combo[1] && tldrPageFile.isInternationalizedVariant(sourceFile);
       });
 
       if (!targetFile) {
         continue;
       }
 
+      const targetIntegrity = await targetFile.verifyIntegrity();
+
+      if (!targetIntegrity) {
+        skippedPaths.add(targetFile.path);
+        continue;
+      }
+
       const targetPage = await targetFile.read();
 
       if (sourcePage === undefined) {
-        sourcePage = await sourceTldrFile.read();
+        sourcePage = await sourceFile.read();
       }
 
       if (writer === undefined) {
@@ -227,6 +243,14 @@ export async function execute(source: string, output: string, targetFormat: stri
   }
 
   console.log('Finished processing all pages.');
+
+  if (skippedPaths.size !== 0) {
+    console.warn('\nWARNING: Skipped the following page(s) as they appear to be malformed:');
+
+    for (const skippedPath of skippedPaths) {
+      console.warn('*', skippedPath);
+    }
+  }
 }
 
 /**

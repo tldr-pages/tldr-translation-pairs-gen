@@ -51,11 +51,7 @@ async function process() {
   try {
     await execute(source, absOutputPath, format);
   } catch (error) {
-    if (error instanceof Error) {
-      console.error(`ERROR: ${error.message}`);
-      return;
-    }
-
+    console.error("\nFATAL: Internal error occurred! Please file a bug report and include terminal output:\nhttps://github.com/tldr-pages/tldr-translation-pairs-gen/issues/new\n");
     throw error;
   }
 }
