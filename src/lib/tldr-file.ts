@@ -45,11 +45,23 @@ export class TldrFile {
   /**
    * Reads the tldr page from disk.
    *
-   * @returns
+   * @returns Contents of the tldr page.
    */
   public async read(): Promise<TldrPage> {
     const pageString = await fs.promises.readFile(this.path, 'utf8');
     const tldrPage = parseTldrPage(pageString);
     return tldrPage;
+  }
+
+  /**
+   * Perform checks to ensure there is nothing unexpected about the tldr page.
+   * This attempts to catch errors that occur in the tldr repository and work
+   * around them to avoid crashes.
+   *
+   * @returns If the file is fine to process.
+   */
+  public async verifyIntegrity(): Promise<boolean> {
+    const stats = await fs.promises.lstat(this.path);
+    return !stats.isDirectory();
   }
 }
