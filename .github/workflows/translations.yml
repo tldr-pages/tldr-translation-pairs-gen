@@ -1,0 +1,38 @@
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  "0 0 1 * *"
+
+jobs:
+  translations:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - name: Initialize project
+        run: |
+          npm ci
+      - name: Build
+        run: |
+          npm run build
+      - name: Fetch sources
+        run: |
+          wget https://github.com/tldr-pages/tldr/archive/refs/heads/main.zip --output-document /tmp/main.zip
+          unzip /tmp/main.zip -d /tmp
+      - name: Execute
+        run: |
+          npm run tldr-translation-pairs-gen -- --source /tmp/tldr-main --output /tmp/datasets
+      - name: Package artifacts
+        run: |
+          tar czf /tmp/datasets.tar.gz --directory /tmp datasets
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: datasets
+          path: /tmp/datasets.tar.gz
+          retention-days: 60
