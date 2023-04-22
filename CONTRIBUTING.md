@@ -14,7 +14,7 @@ As this is a Node.js project and uses NPM for package management, start by insta
 npm i
 ```
 
-At this stage you should be ready to develop! Feel free to try and manually execute commands by following the [Manual Execution](#manual-execution) section just to make sure everything works before diving into the code!
+At this stage you should be ready to develop! Feel free to manually execute commands by following the [Manual Execution](#manual-execution) section, just to make sure everything works before diving into the code!
 
 ## Testing
 
