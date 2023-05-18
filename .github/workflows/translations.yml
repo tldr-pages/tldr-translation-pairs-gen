@@ -29,10 +29,11 @@ jobs:
           npm run tldr-translation-pairs-gen -- --source /tmp/tldr-main --output /tmp/datasets
       - name: Package artifacts
         run: |
-          tar czf /tmp/datasets.tar.gz --directory /tmp datasets
+          tar czf /tmp/tldr-pages-translation-pairs.tar.gz --directory /tmp datasets
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: datasets
-          path: /tmp/datasets.tar.gz
+          name: tldr-pages-translation-pairs
+          path: /tmp/tldr-pages-translation-pairs.tar.gz
+          if-no-files-found: error
           retention-days: 60
