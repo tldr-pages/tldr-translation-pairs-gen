@@ -29,18 +29,19 @@ jobs:
           npm run tldr-translation-pairs-gen -- --source /tmp/tldr-main --output /tmp/datasets
       - name: Package artifacts
         run: |
-          tar czf /tmp/tldr-pages-translation-pairs.tar.gz --directory /tmp datasets
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: tldr-pages-translation-pairs
-          path: /tmp/tldr-pages-translation-pairs.tar.gz
-          if-no-files-found: error
-          retention-days: 60
+          mkdir /tmp/dist
+          tar czf /tmp/dist/tldr-pages-translation-pairs.tar.gz --directory /tmp datasets
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: /tmp/tldr-pages-translation-pairs.tar.gz
+          path: /tmp/dist
+  deploy:
+    needs: translations
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
