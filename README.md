@@ -52,7 +52,7 @@ Each example in a page features two strings, the description of what the command
 
 To map strings between languages, we parse all examples, remove tokens between curly braces (i.e. `{{path/to/file}}`) as they can be internationalized, and then find the pairing example in the page of other languages if it exists.
 
-However, sometimes after removing the content between curly braces, two or more examples in the same page may have the same content because the only difference was the tokens. In these case, we omit them from dataset as there is no way to unambiguously know which command is the pairing example.
+However, sometimes after removing the content between curly braces, two or more examples in the same page may have the same content because the only difference was the tokens. In these cases, we omit them from dataset as there is no way to unambiguously know which command is the pairing example.
 
 Here is a real-world example of the problem: the English version was modified after the French translation was made, so now the pages have fallen out of sync. If we made pairs using the index, we'd create mismatches.
 
