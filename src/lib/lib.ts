@@ -7,9 +7,19 @@ import { TldrPage } from '../lib/tldr-page';
 import { Example, LanguageMapping, Writer } from '../types/tldr-pages';
 import { getWriterForFile } from '../writers/writer-factory';
 
+/**
+ * Matches token in tldr pages. Tokens are wrapped in curly braces, and have a
+ * prefix of "{{" and suffix of "}}".
+ */
 const TOKEN_PATTERN = /(?<=\{\{)[^{]+?(?=\}\})/g;
+
+/** String to replace token syntax with during normalization. */
 const TOKEN_NORMALIZED = '…';
 
+/**
+ * @param source Path to search for tldr pages from.
+ * @returns Array of paths to tldr pages.
+ */
 function collectTldrPages(source: string): Promise<string[]> {
   const globAsync = promisify(glob);
   return globAsync(`${source}/pages*/**/*.md`);
@@ -23,6 +33,10 @@ function getSupportedLanguages(tldrPageFiles: TldrFile[]): Set<string> {
   return new Set(languages);
 }
 
+/**
+ * @param tldrPages Paths to tldr pages.
+ * @returns Metadata of the tldr pages by parsing the file path.
+ */
 export function parseTldrPaths(tldrPages: string[]): TldrFile[] {
   return tldrPages.map((page) => {
     const absolutePath = path.resolve(page);
@@ -126,8 +140,12 @@ export function unique<T>(array: T[], predicate: (a: T, b: T) => boolean) {
   }, []);
 }
 
-export function normalize(text: string) {
-  return text.replace(TOKEN_PATTERN, TOKEN_NORMALIZED);
+/**
+ * @param body Arbitrary string to normalize.
+ * @returns New string where all token syntax is replaced with a predictable string.
+ */
+export function normalize(body: string) {
+  return body.replace(TOKEN_PATTERN, TOKEN_NORMALIZED);
 }
 
 export function findTranslations(sourcePage: TldrPage, sourceLanguage: string, targetPage: TldrPage, targetLanguage: string): LanguageMapping[] {
@@ -254,8 +272,8 @@ export async function execute(source: string, output: string, targetFormat: stri
 }
 
 /**
- * Note that while each combination in the array is sorted, the top-level array
- * itself is not.
+ * While each combination in the array is sorted, the top-level array itself is
+ * not.
  *
  * @param arr Any arbitrary array of items.
  * @returns All combinations of 2 items in the list, each individual combination sorted.
