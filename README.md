@@ -56,7 +56,7 @@ However, sometimes after removing the content between curly braces, two or more 
 
 Here is a real-world example of the problem: the English version was modified after the French translation was made, so now the pages have fallen out of sync. If we made pairs using the index, we'd create mismatches.
 
-| [EN](https://github.com/tldr-pages/tldr/blob/77decbbb90597baa942e224da2138477d273fc86/pages/common/tldr.md) | [FR](https://github.com/SethFalco/tldr/blob/051d085b7b684aec7413e2ea2ea36cc24406ce16/pages.fr/common/tldr.md) |
+| [EN](https://github.com/tldr-pages/tldr/blob/77decbbb90597baa942e224da2138477d273fc86/pages/common/tldr.md) | [FR](https://github.com/tldr-pages/tldr/blob/77decbbb90597baa942e224da2138477d273fc86/pages.fr/common/tldr.md) |
 |---|---|
 | - Print the tldr page for a specific command (hint: this is how you got here!): <br><br> `tldr {{command}}` | - Affiche la page tldr d'une commande (indice : c'est comme ça que vous êtes arrivé ici !) : <br><br> `tldr {{commande}}`
 | - Print the tldr page for a specific subcommand: <br><br> `tldr {{command}}-{{subcommand}}` | - Affiche la page tldr de `cd`, en forçant la plateforme par défaut : <br><br> `tldr -p {{android\|linux\|osx\|sunos\|windows}} {{cd}}`
