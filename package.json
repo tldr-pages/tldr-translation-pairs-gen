@@ -30,7 +30,7 @@
   "dependencies": {
     "commander": "^9.3.0",
     "csv-stringify": "^6.2.0",
-    "glob": "^8.0.3",
+    "glob": "^10.3.10",
     "marked": "^4.0.17",
     "xmlbuilder2": "^3.0.2"
   },
