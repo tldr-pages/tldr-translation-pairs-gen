@@ -35,12 +35,12 @@
     "xmlbuilder2": "^3.0.2"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.3",
+    "@types/chai": "^4.3.11",
     "@types/glob": "^8.0.0",
     "@types/marked": "^4.0.7",
     "@types/mocha": "^10.0.0",
     "@types/node": "^18.11.4",
-    "chai": "^4.3.6",
+    "chai": "^4.3.10",
     "mocha": "^10.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^4.8.4"
