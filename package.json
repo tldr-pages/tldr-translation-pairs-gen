@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/tldr-pages/tldr-translation-pairs-gen#readme",
   "dependencies": {
-    "commander": "^9.3.0",
+    "commander": "^11.1.0",
     "csv-stringify": "^6.2.0",
     "glob": "^8.0.3",
     "marked": "^4.0.17",
