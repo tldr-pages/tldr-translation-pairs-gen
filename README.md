@@ -12,27 +12,44 @@
 
 ## About
 
-This is a CLI application for parsing all tldr pages from the [tldr-pages/tldr](https://github.com/tldr-pages/tldr) repository, and producing a dataset that maps the strings across localized pages. The primary motivation was to provide an additional corpus for [OPUS](https://opus.nlpl.eu/), a collection of translated resources from the web, readily available in standardized formats.
+A CLI application for parsing tldr pages from the [tldr-pages/tldr](https://github.com/tldr-pages/tldr) repository, and producing a dataset that maps the strings across localized pages. The motivation was to provide an additional corpus for [OPUS](https://opus.nlpl.eu), see [What is Opus?](#what-is-opus) for more context.
 
-### What is OPUS?
+## Installation
 
-OPUS is public dataset of translated text on the web. All translations are derived from freely available and openly licensed sources, so the translations themselves are safe to use with minimal restrictions. These datasets are helpful for a variety of applications such as research and machine learning.
+You can install the tool by running the following commands:
 
-A notable project that uses the OPUS corpuses is [LibreTranslate](https://libretranslate.com/), powered by [argos-translate](https://www.argosopentech.com/). It's a free, open-source, and self-hostable machine translation API that doesn't depend on third-party services. Now by translating tldr-pages, we're collectively contributing more data to improve open-source machine translations!
+```sh
+# Clone the repository
+git clone https://github.com/tldr-pages/tldr-translation-pairs-gen.git
+
+# Enter the directory that git created when cloning
+cd tldr-translation-pairs-gen
+
+# Install dependencies
+npm install
+
+# Build the project
+npm run build
+
+# Install the project on your machine
+npm install -g .
+```
+
+You should now have `tldr-translation-pairs-gen` on your path, try the help command to see the available options:
+
+```sh
+tldr-translation-pairs-gen --help
+```
 
 ## Usage
 
-### Obtain a copy of tldr-pages
-
-One way or another, obtain a copy of the tldr-pages. The easiest way is to use [Git](https://git-scm.com/).
+One way or another, obtain a copy of the tldr-pages. The easiest way is to use [Git](https://git-scm.com):
 
 ```sh
 git clone https://github.com/tldr-pages/tldr.git
 ```
 
-### Execute tldr-translation-pairs-gen
-
-Once you have tldr-pages locally, you can point tldr-translation-pairs-gen to the directory using the `--source` argument. This will output a file for every combination of languages to the `dataset/` directory, with all alignments that can be found between localized pages.
+Point tldr-translation-pairs-gen to the directory using the `--source` argument. This will output a file for every combination of languages to the `dataset/` directory, with all alignments that can be found between localized pages.
 
 ```sh
 tldr-translation-pairs-gen --source {{path/to/tldr_dir}}
@@ -62,3 +79,9 @@ Here is a real-world example of the problem: the English version was modified af
 | - Print the tldr page for a specific subcommand: <br><br> `tldr {{command}}-{{subcommand}}` | - Affiche la page tldr de `cd`, en forçant la plateforme par défaut : <br><br> `tldr -p {{android\|linux\|osx\|sunos\|windows}} {{cd}}`
 | - Print the tldr page for a command for a specific [p]latform: <br><br> `tldr {{command}}` | - Affiche la page tldr d'une sous-commande : <br><br> `tldr {{git-checkout}}`
 | - [u]pdate the local cache of tldr pages: <br><br> `tldr -u` | - Met à jour les pages enregistrées localement (si le client supporte la mise en cache) : <br><br> `tldr -u`
+
+## What is OPUS?
+
+OPUS is public dataset of translated resources on the web. All translations are derived from freely available and openly licensed sources, so the translations themselves are safe to use with minimal restrictions. These datasets are helpful for a variety of applications such as research and machine learning.
+
+A notable project that uses the OPUS corpuses is [LibreTranslate](https://libretranslate.com/), powered by [argos-translate](https://www.argosopentech.com/). It's a free, open-source, and self-hostable machine translation API that doesn't depend on third-party services. Now by translating tldr-pages, we're collectively contributing more data to improve open-source machine translations!

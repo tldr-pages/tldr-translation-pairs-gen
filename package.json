@@ -2,6 +2,22 @@
   "name": "tldr-translation-pairs-gen",
   "version": "0.2.1",
   "description": "Generates a structured dataset in various formats derived from tldr-pages.",
+  "author": "tldr",
+  "license": "MIT",
+  "homepage": "https://github.com/tldr-pages/tldr-translation-pairs-gen#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tldr-pages/tldr-translation-pairs-gen.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tldr-pages/tldr-translation-pairs-gen/issues"
+  },
+  "keywords": [
+    "tldr",
+    "opus",
+    "corpus",
+    "i18n"
+  ],
   "bin": {
     "tldr-translation-pairs-gen": "./dist/index.js"
   },
@@ -11,22 +27,6 @@
     "test": "mocha -r ts-node/register 'tests/**/*.ts'",
     "tldr-translation-pairs-gen": "node ./dist/index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tldr-pages/tldr-translation-pairs-gen.git"
-  },
-  "keywords": [
-    "tldr",
-    "opus",
-    "corpus",
-    "i18n"
-  ],
-  "author": "tldr",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/tldr-pages/tldr-translation-pairs-gen/issues"
-  },
-  "homepage": "https://github.com/tldr-pages/tldr-translation-pairs-gen#readme",
   "dependencies": {
     "commander": "^12.0.0",
     "csv-stringify": "^6.4.6",
