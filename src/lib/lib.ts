@@ -64,14 +64,14 @@ export function parseTldrPage(source: string): TldrPage {
   }
 
   const name = markdownTokens[0].text;
-  const descriptionText = markdownTokens[1].tokens ? markdownTokens[1].tokens[0] : undefined;
+  const descriptionText = markdownTokens[1].tokens?.[0];
 
-  if (!descriptionText || descriptionText.type !== 'paragraph') {
+  if (descriptionText?.type !== 'paragraph') {
     throw new Error('Invalid tldr page provided.');
   }
 
   const descriptionTokens = descriptionText.tokens;
-  const hasMoreInfo = descriptionTokens && descriptionTokens[descriptionTokens.length - 2]?.type === 'link';
+  const hasMoreInfo = descriptionTokens?.[descriptionTokens.length - 2]?.type === 'link';
 
   let description = '';
   let moreInfo;
@@ -79,18 +79,16 @@ export function parseTldrPage(source: string): TldrPage {
   if (!hasMoreInfo) {
     description = markdownTokens[1].text;
   } else {
-    if (descriptionTokens) {
-      for (let i = 0; i <= descriptionTokens.length - 4; i++) {
-        description += descriptionTokens[i].raw;
-      }
+    for (let i = 0; i <= descriptionTokens.length - 4; i++) {
+      description += descriptionTokens[i].raw;
+    }
 
-      const descriptionSeperator = descriptionTokens[descriptionTokens.length - 3].raw.split('\n');
-      description += descriptionSeperator[0];
-      moreInfo = descriptionSeperator[1];
+    const descriptionSeparator = descriptionTokens[descriptionTokens.length - 3].raw.split('\n');
+    description += descriptionSeparator[0];
+    moreInfo = descriptionSeparator[1];
 
-      for (let i = descriptionTokens.length - 2; i < descriptionTokens.length; i++) {
-        moreInfo += descriptionTokens[i].raw;
-      }
+    for (let i = descriptionTokens.length - 2; i < descriptionTokens.length; i++) {
+      moreInfo += descriptionTokens[i].raw;
     }
   }
 
