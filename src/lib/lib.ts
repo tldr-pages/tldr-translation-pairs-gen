@@ -60,14 +60,14 @@ export function parseTldrPage(source: string): TldrPage {
   const markdownTokens = lexer.lex(source);
 
   if (markdownTokens[0].type !== 'heading' || markdownTokens[1].type !== 'blockquote') {
-    throw new Error('Invalid tldr page provided.');
+    throw new Error('Malformed tldr page provided.');
   }
 
   const name = markdownTokens[0].text;
   const descriptionText = markdownTokens[1].tokens?.[0];
 
   if (descriptionText?.type !== 'paragraph') {
-    throw new Error('Invalid tldr page provided.');
+    throw new Error('Malformed tldr page provided.');
   }
 
   const descriptionTokens = descriptionText.tokens;
@@ -98,7 +98,7 @@ export function parseTldrPage(source: string): TldrPage {
 
   while (index < markdownTokens.length) {
     if (markdownTokens[index].type !== 'list' || markdownTokens[index + 2].type !== 'paragraph') {
-      throw new Error('Invalid tldr page provided.');
+      throw new Error('Malformed tldr page provided.');
     }
 
     const description = (markdownTokens[index] as any).items[0].text;
