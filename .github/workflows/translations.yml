@@ -1,48 +1,66 @@
+name: Generate and publish translations
+
 on:
-  workflow_dispatch:
+  push:
+    tags:
+      - '*'
   schedule:
-    - cron: "0 0 1 * *"
+    # This will run at 00:00 UTC on the first day of every month
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+
+env:
+  GH_TOKEN: ${{ github.token }}
+
+permissions:
+  contents: write # to upload assets to releases
 
 jobs:
   translations:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-      - name: Initialize project
-        run: |
-          npm ci
-      - name: Build
-        run: |
-          npm run build
-      - name: Fetch sources
-        run: |
-          wget https://github.com/tldr-pages/tldr/archive/refs/heads/main.zip --output-document /tmp/main.zip
-          unzip /tmp/main.zip -d /tmp
-      - name: Execute
-        run: |
-          npm run tldr-translation-pairs-gen -- --source /tmp/tldr-main --output /tmp/datasets
-      - name: Package artifacts
-        run: |
-          mkdir /tmp/dist
-          tar czf /tmp/dist/tldr-pages-translation-pairs.tar.gz --directory /tmp datasets
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: /tmp/dist
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
-  deploy:
-    needs: translations
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+
+    - name: Install npm dependencies
+      run: npm ci
+
+    - name: Build
+      run: npm run build
+
+    - name: Fetch sources
+      run: |
+        wget https://github.com/tldr-pages/tldr/archive/refs/heads/main.zip --output-document /tmp/main.zip
+        unzip /tmp/main.zip -d /tmp
+
+    - name: Generate CSV dataset
+      run: |
+        npm run tldr-translation-pairs-gen -- --source /tmp/tldr-main --output tldr-translation-pairs-dataset --format csv
+        zip tldr-translations-dataset.zip tldr-translation-pairs-dataset/*
+
+    - name: Generate TMX dataset
+      run: |
+        npm run tldr-translation-pairs-gen -- --source /tmp/tldr-main --output tldr-translation-pairs-dataset-tmx --format tmx
+        zip tldr-translations-dataset-tmx.zip tldr-translation-pairs-dataset-tmx/*
+
+    - name: Generate JSON dataset
+      run: |
+        npm run tldr-translation-pairs-gen -- --source /tmp/tldr-main --output tldr-translation-pairs-dataset-json --format json
+        zip tldr-translations-dataset-json.zip tldr-translation-pairs-dataset-json/*
+
+    - name: Generate XML dataset
+      run: |
+        npm run tldr-translation-pairs-gen -- --source /tmp/tldr-main --output tldr-translation-pairs-dataset-xml --format xml
+        zip tldr-translations-dataset-xml.zip tldr-translation-pairs-dataset-xml/*
+
+    - name: Deploy to Release
+      if: github.repository == 'tldr-pages/tldr-translation-pairs-gen' && github.ref == 'refs/heads/main'
+      run: |
+        export RELEASE_TAG="$(git describe --tags --abbrev=0)"
+        gh release --repo tldr-pages/tldr-translation-pairs-gen upload --clobber "$RELEASE_TAG" -- *.zip
