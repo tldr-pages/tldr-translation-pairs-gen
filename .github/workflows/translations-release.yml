@@ -41,8 +41,8 @@ jobs:
 
     - name: Generate CSV dataset
       run: |
-        npm run tldr-translation-pairs-gen -- --source /tmp/tldr-main --output tldr-translation-pairs-dataset --format csv
-        zip tldr-translations-dataset.zip tldr-translation-pairs-dataset/*
+        npm run tldr-translation-pairs-gen -- --source /tmp/tldr-main --output tldr-translation-pairs-dataset-csv --format csv
+        zip tldr-translations-dataset-csv.zip tldr-translation-pairs-dataset-csv/*
 
     - name: Generate TMX dataset
       run: |
