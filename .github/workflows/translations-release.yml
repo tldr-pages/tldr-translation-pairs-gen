@@ -71,6 +71,5 @@ jobs:
       if: github.repository == 'tldr-pages/tldr-translation-pairs-gen' && github.ref == 'refs/heads/main'
       id: attest
       uses: actions/attest-build-provenance@v1
-      continue-on-error: true # prevent failing when no pages are modified
       with:
         subject-path: *.zip
