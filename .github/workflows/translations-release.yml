@@ -74,4 +74,4 @@ jobs:
       id: attest
       uses: actions/attest-build-provenance@v1
       with:
-        subject-path: *.zip
+        subject-path: '*.zip'
