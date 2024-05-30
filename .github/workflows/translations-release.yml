@@ -12,12 +12,14 @@ on:
 env:
   GH_TOKEN: ${{ github.token }}
 
-permissions:
-  contents: write # to upload assets to releases
-
 jobs:
   translations:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # to upload assets to releases
+      attestations: write # to upload assets attestation for build provenance
+      id-token: write # grant additional permission to attestation action to mint the OIDC token permission
+
     steps:
     - uses: actions/checkout@v4
       with:
@@ -64,3 +66,11 @@ jobs:
       run: |
         export RELEASE_TAG="$(git describe --tags --abbrev=0)"
         gh release --repo tldr-pages/tldr-translation-pairs-gen upload --clobber "$RELEASE_TAG" -- *.zip
+
+    - name: Attest generated files
+      if: github.repository == 'tldr-pages/tldr-translation-pairs-gen' && github.ref == 'refs/heads/main'
+      id: attest
+      uses: actions/attest-build-provenance@v1
+      continue-on-error: true # prevent failing when no pages are modified
+      with:
+        subject-path: *.zip
