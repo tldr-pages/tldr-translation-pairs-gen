@@ -1,5 +1,6 @@
 import path from 'path';
-import glob from 'glob';
+import { glob as globCb } from 'glob';
+import { GlobOptions } from 'glob';
 import { Lexer } from 'marked';
 import { promisify } from 'util';
 import { TldrFile } from '../lib/tldr-file';
@@ -21,8 +22,8 @@ const TOKEN_NORMALIZED = '…';
  * @returns Array of paths to tldr pages.
  */
 function collectTldrPages(source: string): Promise<string[]> {
-  const globAsync = promisify(glob);
-  return globAsync(`${source}/pages*/**/*.md`);
+  const globAsync = promisify<string, GlobOptions, string[]>(globCb);
+  return globAsync(`${source}/pages*/**/*.md`, {});
 }
 
 /**
