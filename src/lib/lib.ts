@@ -1,7 +1,6 @@
 import path from 'path';
-import glob from 'glob';
+import fg from 'fast-glob';
 import { Lexer } from 'marked';
-import { promisify } from 'util';
 import { TldrFile } from '../lib/tldr-file';
 import { TldrPage } from '../lib/tldr-page';
 import { Example, LanguageMapping, Writer } from '../types/tldr-pages';
@@ -20,9 +19,15 @@ const TOKEN_NORMALIZED = '…';
  * @param source Path to search for tldr pages from.
  * @returns Array of paths to tldr pages.
  */
-function collectTldrPages(source: string): Promise<string[]> {
-  const globAsync = promisify(glob);
-  return globAsync(`${source}/pages*/**/*.md`);
+
+async function collectTldrPages(source: string): Promise<string[]> {
+  try {
+    const files: string[] = await fg(`${source}/pages*/**/*.md`);
+    return files;
+  } catch (error) {
+    console.error(`Error collecting TLDR pages: ${error}`);
+    return [];
+  }
 }
 
 /**
