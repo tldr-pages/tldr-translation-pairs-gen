@@ -72,7 +72,7 @@ export function parseTldrPage(source: string): TldrPage {
   const descriptionText = markdownTokens[1].tokens?.[0];
 
   if (descriptionText?.type !== 'paragraph') {
-    throw new Error('Malformed tldr page provided.');
+    throw new Error(`Malformed tldr page.\n\n${source}`);
   }
 
   const descriptionTokens = descriptionText.tokens;
@@ -102,8 +102,13 @@ export function parseTldrPage(source: string): TldrPage {
   let index = 2;
 
   while (index < markdownTokens.length) {
+    if (markdownTokens[index].type === 'space') {
+      index++;
+      continue;
+    }
+
     if (markdownTokens[index].type !== 'list' || markdownTokens[index + 2].type !== 'paragraph') {
-      throw new Error('Malformed tldr page provided.');
+      throw new Error(`Malformed tldr page.\n\n${source}`);
     }
 
     const description = (markdownTokens[index] as any).items[0].text;
