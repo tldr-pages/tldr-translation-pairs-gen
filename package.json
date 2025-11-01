@@ -38,7 +38,6 @@
     "xmlbuilder2": "^3.1.1"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.17",
     "@types/marked": "^6.0.0",
     "@types/node": "^24.6.1",
     "ts-node": "^10.9.2",
