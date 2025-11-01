@@ -21,10 +21,13 @@
   "bin": {
     "tldr-translation-pairs-gen": "./dist/index.js"
   },
+  "engines": {
+    "node": ">=24.3"
+  },
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "test": "mocha -r ts-node/register 'tests/**/*.ts'",
+    "test": "node --require ts-node/register --test ./**/*.test.ts",
     "tldr-translation-pairs-gen": "node ./dist/index.js"
   },
   "dependencies": {
@@ -37,10 +40,7 @@
   "devDependencies": {
     "@types/chai": "^4.3.17",
     "@types/marked": "^6.0.0",
-    "@types/mocha": "^10.0.10",
     "@types/node": "^24.6.1",
-    "chai": "^4.5.0",
-    "mocha": "^11.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }

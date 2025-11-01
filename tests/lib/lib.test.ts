@@ -1,5 +1,5 @@
-import { describe } from 'node:test';
-import { assert } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import { findTranslations, getSortedCombinations, normalize, parseTldrPage, parseTldrPaths, unique } from '../../src/lib/lib';
 import { TldrFile } from '../../src/lib/tldr-file';
 import { TldrPage } from '../../src/lib/tldr-page';

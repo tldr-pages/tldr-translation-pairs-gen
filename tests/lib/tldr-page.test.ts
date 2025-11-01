@@ -1,5 +1,5 @@
-import { describe } from 'node:test';
-import { assert } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 import { TldrPage } from '../../src/lib/tldr-page';
 
 describe('TldrPage', () => {
