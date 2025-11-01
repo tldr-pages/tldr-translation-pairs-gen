@@ -2,7 +2,8 @@ import fs from 'fs';
 import { create } from 'xmlbuilder2';
 import { XMLBuilderCreateOptions, XMLWriterOptions } from 'xmlbuilder2/lib/interfaces';
 import { VERSION } from '../constants';
-import { LanguageMapping, Writer } from '../types/tldr-pages';
+import { LanguageMapping } from '../lib/lib';
+import { Writer } from './writer';
 
 /**
  * Writer to export in the TMX (Translation Memory eXchange) format.

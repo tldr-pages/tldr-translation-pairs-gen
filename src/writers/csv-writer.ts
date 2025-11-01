@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { Stringifier, stringify } from 'csv-stringify';
-import { LanguageMapping, Writer } from '../types/tldr-pages';
+import { LanguageMapping } from '../lib/lib';
+import { Writer } from './writer';
 
 export class CsvWriter implements Writer {
 

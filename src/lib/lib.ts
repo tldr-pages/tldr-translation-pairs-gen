@@ -2,9 +2,15 @@ import path from 'path';
 import fg from 'fast-glob';
 import { Lexer } from 'marked';
 import { TldrFile } from '../lib/tldr-file';
-import { TldrPage } from '../lib/tldr-page';
-import { Example, LanguageMapping, Writer } from '../types/tldr-pages';
-import { getWriterForFile } from '../writers/writer-factory';
+import { Example, TldrPage } from '../lib/tldr-page';
+import { getWriterForFile, Writer } from '../writers/writer';
+
+export type LanguageMapping = {
+  sourceLanguage: string;
+  targetLanguage: string;
+  sourceString: string;
+  targetString: string;
+}
 
 /**
  * Matches token in tldr pages. Tokens are wrapped in curly braces, and have a

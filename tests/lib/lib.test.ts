@@ -1,9 +1,8 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { findTranslations, getSortedCombinations, normalize, parseTldrPage, parseTldrPaths, unique } from '../../src/lib/lib';
+import { findTranslations, getSortedCombinations, LanguageMapping, normalize, parseTldrPage, parseTldrPaths, unique } from '../../src/lib/lib';
 import { TldrFile } from '../../src/lib/tldr-file';
-import { TldrPage } from '../../src/lib/tldr-page';
-import { Example, LanguageMapping } from '../../src/types/tldr-pages';
+import { Example, TldrPage } from '../../src/lib/tldr-page';
 
 describe('#parseTldrPaths', () => {
 
