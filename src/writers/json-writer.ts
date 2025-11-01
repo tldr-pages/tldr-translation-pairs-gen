@@ -1,5 +1,6 @@
 import fs from 'fs';
-import { LanguageMapping, Writer } from '../types/tldr-pages';
+import { LanguageMapping } from '../lib/lib';
+import { Writer } from './writer';
 
 export class JsonWriter implements Writer {
 

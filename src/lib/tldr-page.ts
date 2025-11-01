@@ -1,4 +1,8 @@
-import type { Example } from '../types/tldr-pages';
+/** Command example in a tldr page. */
+export type Example = {
+  description: string;
+  command: string;
+}
 
 /**
  * @since 0.1.0

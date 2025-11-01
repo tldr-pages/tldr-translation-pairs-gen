@@ -1,7 +1,8 @@
 import fs from 'fs';
 import { create } from 'xmlbuilder2';
 import { XMLBuilderCreateOptions } from 'xmlbuilder2/lib/interfaces';
-import { LanguageMapping, Writer } from '../types/tldr-pages';
+import { Writer } from './writer';
+import { LanguageMapping } from '../lib/lib';
 
 export class XmlWriter implements Writer {
 
