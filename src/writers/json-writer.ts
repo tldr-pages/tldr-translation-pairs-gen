@@ -4,17 +4,17 @@ import { Writer } from './writer';
 
 export class JsonWriter implements Writer {
 
-  private accumlatedData: unknown[];
+  private accumulatedData: unknown[];
 
   constructor(private output: string) {
-    this.accumlatedData = [];
+    this.accumulatedData = [];
   }
 
   write(data: LanguageMapping) {
-    this.accumlatedData.push(data);
+    this.accumulatedData.push(data);
   }
 
   finished() {
-    fs.writeFile(this.output, JSON.stringify(this.accumlatedData, undefined, 2), () => undefined);
+    fs.writeFile(this.output, JSON.stringify(this.accumulatedData, undefined, 2), () => undefined);
   }
 }
