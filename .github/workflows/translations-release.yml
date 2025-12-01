@@ -23,7 +23,7 @@ jobs:
       id-token: write # grant additional permission to attestation action to mint the OIDC token permission
 
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         fetch-depth: 0
 
