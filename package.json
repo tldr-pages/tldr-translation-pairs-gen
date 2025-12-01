@@ -31,7 +31,7 @@
     "tldr-translation-pairs-gen": "node ./dist/index.js"
   },
   "dependencies": {
-    "commander": "^14.0.1",
+    "commander": "^14.0.2",
     "csv-stringify": "^6.6.0",
     "fast-glob": "^3.3.3",
     "marked": "^16.4.1",
