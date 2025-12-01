@@ -35,7 +35,7 @@
     "csv-stringify": "^6.6.0",
     "fast-glob": "^3.3.3",
     "marked": "^16.4.1",
-    "xmlbuilder2": "^4.0.0"
+    "xmlbuilder2": "^4.0.3"
   },
   "devDependencies": {
     "@types/node": "^24.6.1",
