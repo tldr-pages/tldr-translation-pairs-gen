@@ -70,12 +70,19 @@ export function parseTldrPage(source: string): TldrPage {
   const lexer = new Lexer();
   const markdownTokens = lexer.lex(source);
 
-  if (markdownTokens[0].type !== 'heading' || markdownTokens[1].type !== 'blockquote') {
+  let blockquoteIndex = 1;
+  while (markdownTokens[blockquoteIndex]?.type === 'space') {
+    blockquoteIndex++;
+  }
+
+  const blockquoteToken = markdownTokens[blockquoteIndex];
+
+  if (markdownTokens[0].type !== 'heading' || blockquoteToken?.type !== 'blockquote') {
     throw new Error('Malformed tldr page provided.');
   }
 
   const name = markdownTokens[0].text;
-  const descriptionText = markdownTokens[1].tokens?.[0];
+  const descriptionText = blockquoteToken.tokens?.[0];
 
   if (descriptionText?.type !== 'paragraph') {
     throw new Error(`Malformed tldr page.\n\n${source}`);
@@ -88,7 +95,7 @@ export function parseTldrPage(source: string): TldrPage {
   let moreInfo;
 
   if (!hasMoreInfo) {
-    description = markdownTokens[1].text;
+    description = blockquoteToken.text;
   } else {
     for (let i = 0; i <= descriptionTokens.length - 4; i++) {
       description += descriptionTokens[i].raw;
@@ -105,7 +112,7 @@ export function parseTldrPage(source: string): TldrPage {
 
   const examples: Example[] = [];
 
-  let index = 2;
+  let index = blockquoteIndex + 1;
 
   while (index < markdownTokens.length) {
     if (markdownTokens[index].type === 'space') {
