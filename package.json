@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "commander": "^15.0.0",
-    "csv-stringify": "^6.8.3",
+    "csv-stringify": "^6.9.0",
     "fast-glob": "^3.3.3",
     "marked": "^18.0.14",
     "xmlbuilder2": "^4.0.3"
